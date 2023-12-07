@@ -1,27 +1,26 @@
 {
-  "rootCert": {
+  "rootCerts": [{
     "commonName": "Here-we-Goal",
     "countryName": "CN",
     "localityName": "Shanghai",
     "organizationName": "Here-we-Goal CO. LTD",
     "organizationalUnitName": "H.W.G",
     "subjectAltName": "Here-we-Goal"
-  },
-  "serverCert": {
+  }],
+  "serverCerts": [{
     "commonName": "res-local.Here-we-Goal",
     "countryName": "CN",
     "localityName": "Shanghai",
     "organizationName": "Here-we-Goal CO. LTD",
     "organizationalUnitName": "H.W.G",
     "subjectAltName": "res-local.app.ikea.cn"
-  },
-  "proxyCert": {
-    "commonName": "5000-years.Here-we-Goal",
+  },{
+    "commonName": "localhost.Here-we-Goal",
     "countryName": "CN",
     "localityName": "Shanghai",
     "organizationName": "Here-we-Goal CO. LTD",
     "organizationalUnitName": "H.W.G",
-    "subjectAltName": "5000-years.in",
-    "ipAddress": "192.168.5.98"
-  }
+    "subjectAltName": "localhost",
+    "ipAddress": "127.0.0.1"
+  }]
 }

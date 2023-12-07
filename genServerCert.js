@@ -5,4 +5,6 @@ const { generateServerCertificate } = require('./utils/index')
 const config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
 
 // 调用函数生成服务器证书
-generateServerCertificate(config.serverCert);
+(config?.serverCerts || []).forEach((conf) => {
+  generateServerCertificate(conf);
+});

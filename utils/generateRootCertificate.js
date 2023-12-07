@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const forge = require('node-forge');
 
-function generateRootCertificate(config) {
+function generateRootCertificate(conf) {
   // 创建根证书
   const rootKeys = forge.pki.rsa.generateKeyPair(2048);
   const rootCert = forge.pki.createCertificate();
@@ -13,8 +13,8 @@ function generateRootCertificate(config) {
   rootCert.validity.notAfter.setFullYear(rootCert.validity.notBefore.getFullYear() + 1);  // 1年有效期
 
   const rootAttrs = [
-    {name: 'commonName', value: config.rootCert.commonName},
-    {name: 'countryName', value: config.rootCert.countryName},
+    {name: 'commonName', value: conf.commonName},
+    {name: 'countryName', value: conf.countryName},
     // ... 其他属性
   ];
   rootCert.setSubject(rootAttrs);
@@ -37,7 +37,7 @@ function generateRootCertificate(config) {
       name: 'subjectAltName',
       altNames: [{
         type: 2, // DNS
-        value: config.rootCert.subjectAltName // 你的域名
+        value: conf.subjectAltName // 你的域名
       }]
     }
   ];

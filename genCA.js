@@ -5,4 +5,6 @@ const { generateRootCertificate } = require('./utils/index')
 const config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
 
 // 调用函数生成根证书
-generateRootCertificate(config);
+(config?.rootCerts || []).forEach((conf) => {
+  generateRootCertificate(conf);
+});

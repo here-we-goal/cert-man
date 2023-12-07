@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const forge = require('node-forge');
 
-function generateServerCertificate(config) {
+function generateServerCertificate(conf) {
   const caDir = path.join(__dirname, '../dist/CA')
   // 读取根证书和私钥
   const rootCertPem = fs.readFileSync(path.join(caDir, 'root-cert.crt'));
@@ -20,8 +20,8 @@ function generateServerCertificate(config) {
   serverCert.validity.notAfter.setFullYear(serverCert.validity.notBefore.getFullYear() + 1);  // 1年有效期
 
   const serverAttrs = [
-    {name: 'commonName', value: config.commonName},
-    {name: 'countryName', value: config.countryName},
+    {name: 'commonName', value: conf.commonName},
+    {name: 'countryName', value: conf.countryName},
     // ... 其他属性
   ];
   serverCert.setSubject(serverAttrs);
@@ -37,16 +37,16 @@ function generateServerCertificate(config) {
       name: 'subjectAltName',
       altNames: [{
         type: 2, // DNS
-        value: config.subjectAltName // 你的域名
+        value: conf.subjectAltName // 你的域名
       }]
     }
   ];
 
   // 检查是否存在IP地址，如果存在，则添加到subjectAltName扩展中
-  if (config.ipAddress && config.ipAddress.trim() !== '') {
+  if (conf.ipAddress && conf.ipAddress.trim() !== '') {
     extensions[1].altNames.push({
       type: 7, // IP
-      ip: config.ipAddress // 你的IP地址
+      ip: conf.ipAddress // 你的IP地址
     });
   }
 
@@ -60,8 +60,8 @@ function generateServerCertificate(config) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
-  fs.writeFileSync(path.join(dir, `${config.ipAddress || config.subjectAltName || config.commonName}-cert.crt`), forge.pki.certificateToPem(serverCert));
-  fs.writeFileSync(path.join(dir, `${config.ipAddress || config.subjectAltName || config.commonName}-key.key`), forge.pki.privateKeyToPem(serverKeys.privateKey));
+  fs.writeFileSync(path.join(dir, `${conf.ipAddress || conf.subjectAltName || conf.commonName}-cert.crt`), forge.pki.certificateToPem(serverCert));
+  fs.writeFileSync(path.join(dir, `${conf.ipAddress || conf.subjectAltName || conf.commonName}-key.key`), forge.pki.privateKeyToPem(serverKeys.privateKey));
 }
 
 module.exports = generateServerCertificate
