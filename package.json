@@ -1,0 +1,16 @@
+{
+  "name": "cert-man",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "genCA": "node genCA.js",
+    "genServerCert": "node genServerCert.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-forge": "^1.3.1"
+  }
+}
